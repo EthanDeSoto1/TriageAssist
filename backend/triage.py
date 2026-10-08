@@ -12,8 +12,8 @@ load_dotenv()
 
 client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY", ""))
 
-MODEL = "claude-haiku-4-5"
-MAX_TOKENS = 2048
+MODEL = "claude-haiku-5-5"
+MAX_TOKENS = 4096
 
 NO_TEXT_PLACEHOLDER = "The requester sent the attached file with no written description."
 
@@ -113,6 +113,7 @@ def triage_ticket(text, file_bytes=None, media_type=None):
                 }
             ],
             output_format=TriageResult,
+            output_config={"effort": "medium"},
         )
     except anthropic.AuthenticationError:
         raise TriageError(
